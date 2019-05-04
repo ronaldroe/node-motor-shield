@@ -4,7 +4,16 @@ Node-based implementation of SBCShop's [Python MotorShield library](https://gith
 
 ## Implementation Status
 
-  - Class `Motor` :white_check_mark:
+  - Class `Motor` :heavy_check_mark:
+  - Class `LinkedMotors` :x:
+  - Class `Stepper` :x:
+  - Class `Sensor` :x:
+  - Class `Arrow` :x:
+
+  - Test_Motor :x:
+  - Stepper_Test :x:
+
+  - GUI_Motor_Shield :x: *Probably won't happen*
 
 ## Differences
 
