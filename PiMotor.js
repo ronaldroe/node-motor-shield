@@ -8,9 +8,9 @@ class Motor{
     Use the supplied Motorshieldtest module to test the correct configuration for your project.
     
     Arguments:
-    motor = string motor pin label (i.e. "MOTOR1","MOTOR2","MOTOR3","MOTOR4") identifying the pins to which
-            the motor is connected.
-    config = number defining which pins control "forward" and "backward" movement.
+      motor = string motor pin label (i.e. "MOTOR1","MOTOR2","MOTOR3","MOTOR4") identifying the pins to which
+              the motor is connected.
+      config = number defining which pins control "forward" and "backward" movement.
   */
   
   constructor(motor, config){
@@ -55,11 +55,14 @@ class Motor{
     //TODO: GPIO time, I guess
     
     this.motorE = new Gpio(this.pins.e, {mode: Gpio.OUTPUT});
-    this.motorF = new Gpio(this.pins.e, {mode: Gpio.OUTPUT});
-    this.motorR = new Gpio(this.pins.e, {mode: Gpio.OUTPUT});
+    this.motorF = new Gpio(this.pins.f, {mode: Gpio.OUTPUT});
+    this.motorR = new Gpio(this.pins.r, {mode: Gpio.OUTPUT});
     
     this.motorE.pwmRange(100);
     this.motorE.pwmFrequency(50);
+    
+    this.motorF.digitalWrite(0);
+    this.motorR.digitalWrite(0);
     
   }
   
@@ -145,12 +148,32 @@ class Motor{
 
 class Arrow{
   
+  /*
+    Defines an object for controlling one of the LED arrows on the Motorshield.
+  
+    Arguments:
+    which = integer label for each arrow. The arrow number if arbitrary starting with:
+        1 = Arrow closest to the Motorshield's power pins and running clockwise round the board
+        ...
+        4 = Arrow closest to the motor pins.
+  */
+  
   constructor(which){
     
     this.arrowpins = [0, 33, 35, 37, 36];
     
-    this.pin = this.arrowpins[which];
+    this.pin = new Gpio(which, {mode: Gpio.OUTPUT});
     
+    this.pin.digitalWrite(0);
+    
+  }
+  
+  on = () => {
+    this.pin.digitalWrite(1);
+  }
+  
+  off = () => {
+    this.pin.digitalWrite(0);
   }
   
 }
