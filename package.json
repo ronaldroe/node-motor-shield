@@ -1,0 +1,22 @@
+{
+  "name": "motor-shield",
+  "version": "1.0.0",
+  "description": "Node implementation of SBC Shop's Motor Shield library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ronaldroe/node-motor-shield.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ronaldroe/node-motor-shield/issues"
+  },
+  "homepage": "https://github.com/ronaldroe/node-motor-shield#readme",
+  "dependencies": {
+    "pigpio": "^1.2.2"
+  }
+}
