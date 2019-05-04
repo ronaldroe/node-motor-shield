@@ -13,7 +13,7 @@ Node-based implementation of SBCShop's [Python MotorShield library](https://gith
   - Test_Motor :x:
   - Stepper_Test :x:
 
-  - GUI_Motor_Shield :x: *Probably won't happen*
+  - GUI_Motor_Shield :x:
 
 ## Differences
 
