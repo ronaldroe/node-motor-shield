@@ -1,6 +1,6 @@
 const Gpio = require('pigpio').Gpio;
 
-class Motor{
+export class Motor{
   
   /* 
     Class to handle interaction with the motor pins
@@ -146,7 +146,79 @@ class Motor{
   
 }
 
-class Arrow{
+export class LinkedMotors{
+  
+  /*
+    Links 2 or more motors together as a set.
+    
+    This allows a single command to be used to control a linked set of motors
+    e.g. For a 4x wheel vehicle this allows a single command to make all 4 wheels go forward.
+    Starts the motor turning in its configured "forward" direction.
+    
+    Arguments:
+    *motors = a list of Motor objects
+  */
+  
+  constructor(motors){
+    
+    this.motor = [];
+    
+    for(let m in motors){
+      console.log(m.pins);
+      this.motor.push(m);
+    }
+    
+  }
+  
+  forward(speed){
+    
+    /*
+      Starts the motor turning in its configured "forward" direction.
+
+      Arguments:
+      speed = Duty Cycle Percentage from 0 to 100. Default: 100
+      0 - stop and 100 - maximum speed.
+      
+      Call without an argument to set speed to 100.
+    */
+    
+    this.motor.forEach(motor => {
+      motor.forward(speed || 100);
+    });
+    
+  }
+  
+  reverse(speed){
+    
+    /*
+      Starts the motor turning in its configured "reverse" direction.
+
+      Arguments:
+      speed = Duty Cycle Percentage from 0 to 100. Default: 100
+      0 - stop and 100 - maximum speed.
+      
+      Call without an argument to set speed to 100.
+    */
+    
+    this.motor.forEach(motor => {
+      motor.reverse(speed || 100);
+    });
+    
+  }
+  
+  stop(){
+    
+    /* Stops power to the motors */
+    
+    this.motor.forEach(motor => {
+      motor.stop();
+    });
+    
+  }
+  
+}
+
+export class Arrow{
   
   /*
     Defines an object for controlling one of the LED arrows on the Motorshield.
