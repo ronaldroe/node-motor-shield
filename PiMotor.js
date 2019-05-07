@@ -1,6 +1,7 @@
+'use strict';
 const Gpio = require('pigpio').Gpio;
 
-export class Motor{
+class Motor{
   
   /* 
     Class to handle interaction with the motor pins
@@ -15,32 +16,33 @@ export class Motor{
   
   constructor(motor, config){
     
+    // Pin numbers are different, because pigpio uses GPIO numbers instead of pin numbers.
     this.motorpins = {
       MOTOR4: {
         config: {
-          1: {e:32,f:24,r:26},
-          2: {e:32,f:26,r:24}
+          1: {e:12,f:8,r:7},
+          2: {e:12,f:7,r:8}
         },
         arrow:1
       },
       MOTOR3: {
         config: {
-          1: {e:19,f:21,r:23},
-          2: {e:19,f:23,r:21}
+          1: {e:10,f:9,r:11},
+          2: {e:10,f:11,r:9}
         }, 
         arrow:2
       },
       MOTOR2: {
         config: {
-          1: {e:22,f:16,r:18},
-          2: {e:22,f:18,r:16}
+          1: {e:25,f:23,r:24},
+          2: {e:25,f:24,r:23}
         }, 
         arrow:3
       },
       MOTOR1: {
         config: {
-          1: {e:11,f:15,r:13},
-          2: {e:11,f:13,r:15}
+          1: {e:17,f:22,r:27},
+          2: {e:17,f:27,r:22}
         },
         arrow:4
       }
@@ -58,7 +60,6 @@ export class Motor{
     this.motorF = new Gpio(this.pins.f, {mode: Gpio.OUTPUT});
     this.motorR = new Gpio(this.pins.r, {mode: Gpio.OUTPUT});
     
-    this.motorE.pwmRange(100);
     this.motorE.pwmFrequency(50);
     
     this.motorF.digitalWrite(0);
@@ -66,7 +67,7 @@ export class Motor{
     
   }
   
-  test = state => {
+  test(state){
     
     /*
       Puts the motor into test mode. When in test mode, the Arrow associated with the motor
@@ -80,9 +81,11 @@ export class Motor{
     
     this.testMode = typeof state === 'boolean' ? state : !this.testMode;
     
+    return this;
+    
   }
   
-  forward = speed => {
+  forward(speed){
     
     /*
       Starts the motor turning in its configured "forward" direction.
@@ -99,14 +102,16 @@ export class Motor{
     if(this.testMode){
       this.arrow.on();
     } else {
-      this.motorE.pwmWrite(speed || 100);
+      this.motorE.pwmWrite(typeof speed !== 'undefined' ? Math.ceil(255 * (speed / 100)) : 255);
       this.motorF.digitalWrite(1);
       this.motorR.digitalWrite(0);
     }
     
+    return this;
+    
   }
   
-  reverse = speed => {
+  reverse(speed){
     
     /*
       Starts the motor turning in its configured "reverse" direction.
@@ -123,14 +128,16 @@ export class Motor{
     if(this.testMode){
       this.arrow.off();
     } else {
-      this.motorE.pwmWrite(speed || 100);
+      this.motorE.pwmWrite(typeof speed !== 'undefined' ? Math.ceil(255 * (speed / 100)) : 255);
       this.motorF.digitalWrite(0);
       this.motorR.digitalWrite(1);
     }
     
+    return this;
+    
   }
   
-  stop = () => {
+  stop(){
     
     // Stops power to the motor
     
@@ -141,12 +148,14 @@ export class Motor{
     this.motorE.pwmWrite(0);
     this.motorF.digitalWrite(0);
     this.motorR.digitalWrite(0);
+    
+    return this;
 
   }
   
 }
 
-export class LinkedMotors{
+class LinkedMotors{
   
   /*
     Links 2 or more motors together as a set.
@@ -159,13 +168,12 @@ export class LinkedMotors{
     *motors = a list of Motor objects
   */
   
-  constructor(motors){
+  constructor(){
     
     this.motor = [];
     
-    for(let m in motors){
-      console.log(m.pins);
-      this.motor.push(m);
+    for(let i = 0; i < arguments.length; i++){
+      this.motor.push(arguments[i]);
     }
     
   }
@@ -182,9 +190,11 @@ export class LinkedMotors{
       Call without an argument to set speed to 100.
     */
     
-    this.motor.forEach(motor => {
-      motor.forward(speed || 100);
+    this.motor.forEach(m => {
+      m.forward(speed || 100);
     });
+    
+    return this;
     
   }
   
@@ -204,6 +214,8 @@ export class LinkedMotors{
       motor.reverse(speed || 100);
     });
     
+    return this;
+    
   }
   
   stop(){
@@ -214,11 +226,13 @@ export class LinkedMotors{
       motor.stop();
     });
     
+    return this;
+    
   }
   
 }
 
-export class Arrow{
+class Arrow{
   
   /*
     Defines an object for controlling one of the LED arrows on the Motorshield.
@@ -232,7 +246,7 @@ export class Arrow{
   
   constructor(which){
     
-    this.arrowpins = [0, 33, 35, 37, 36];
+    this.arrowpins = [0, 13, 19, 26, 16];
     
     this.pin = new Gpio(which, {mode: Gpio.OUTPUT});
     
@@ -240,12 +254,31 @@ export class Arrow{
     
   }
   
-  on = () => {
+  on(){
     this.pin.digitalWrite(1);
+    return this;
   }
   
-  off = () => {
+  off(){
     this.pin.digitalWrite(0);
+    return this;
   }
   
 }
+
+function sleep(time) {
+  /* 
+  Stand-in for Python's sleep function. Requires async-await to work.
+  Wrap code in a async function, then await sleep(time).
+  IIFE example:
+    (async function(){
+      console.log('start');
+      sleep(3000);
+      console.log('done');
+    })()
+  This will log 'start', wait 3 seconds, then log 'done'.
+*/
+  return new Promise(resolve => setTimeout(resolve, time));
+}
+
+module.exports = { Motor, LinkedMotors, Arrow, sleep };
