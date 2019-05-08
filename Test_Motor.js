@@ -62,7 +62,6 @@ try{
     af.off();
     ar.off();
     motorAll.stop();
-    await PiMotor.sleep(5000);
     
   })();
   
