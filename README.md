@@ -6,7 +6,7 @@ Node-based implementation of SBCShop's [Python MotorShield library](https://gith
 
   - Class `Motor` :heavy_check_mark:
   - Class `LinkedMotors` :heavy_check_mark:
-  - Class `Stepper` :x:
+  - Class `Stepper` :heavy_check_mark:
   - Class `Sensor` :x:
   - Class `Arrow` :heavy_check_mark:
 
@@ -21,7 +21,7 @@ Node-based implementation of SBCShop's [Python MotorShield library](https://gith
 npm install --save node-motor-shield
 ```
 
-## Differences
+## Differences and Notes
 
 Effort has been made to ensure this repository behaves identically to the Python version. 
 Differences between the libraries are designed to add minor functionality without sacrificing compatibility.
@@ -33,14 +33,17 @@ Differences between the libraries are designed to add minor functionality withou
     - As in the `Motor` class, `forward()` and `reverse()` may be called without the speed argument, which will default the speed to `100`.
   - ### Motor Test
     - For now, the test only runs once, until I can figure out how to make it loop continuously, which will depend on making it block the next iteration until the last one finishes. JS sucks at things like that.
+  - ### Class 'Stepper'
+    - *NOTE:* Delay times are in full seconds to align with the original library's functionality.
   - ### `sleep(ms)`
     - Mimics Python's `sleep()` function in a JS async function.
+    - Delays are in JS standard milliseconds, rather than Python's full seconds.
     - **NOTE:** `sleep()` must be called inside an asynchronous function, and used with the `await` operator.
     - Example:
 ```
 (async function(){
   console.log('start');
-  sleep(3000);
+  sleep(3000); // 3 seconds
   console.log('done');
 })()
 ```

@@ -266,6 +266,141 @@ class Arrow{
   
 }
 
+class Stepper{
+  
+  constructor(motor){
+    
+    /*
+      Defines stepper motor pins on the MotorShield
+    
+      Arguments:
+      motor = stepper motor
+    */
+    
+    this.stepperpins = {
+      STEPPER1: {
+        en1: 17,
+        en2: 25,
+        c1: 27,
+        c2: 22,
+        c3: 24,
+        c4: 23
+      },
+      STEPPER2: {
+        en1: 10,
+        en2: 12,
+        c1: 9,
+        c2: 11,
+        c3: 8,
+        c4: 7
+      }
+    };
+    
+    this.config = this.stepperpins[motor];
+    
+    this.motorEn1 = new Gpio(this.config.en1, {mode: Gpio.OUTPUT});
+    this.motorEn2 = new Gpio(this.config.en2, {mode: Gpio.OUTPUT});
+    this.motorC1 = new Gpio(this.config.C1, {mode: Gpio.OUTPUT});
+    this.motorC2 = new Gpio(this.config.C2, {mode: Gpio.OUTPUT});
+    this.motorC3 = new Gpio(this.config.C3, {mode: Gpio.OUTPUT});
+    this.motorC4 = new Gpio(this.config.C4, {mode: Gpio.OUTPUT});
+    
+    this.motorEn1.digitalWrite(1);
+    this.motorEn2.digitalWrite(1);
+    this.motorC1.digitalWrite(0);
+    this.motorC2.digitalWrite(0);
+    this.motorC3.digitalWrite(0);
+    this.motorC4.digitalWrite(0);
+    
+  }
+  
+  setStep(w1, w2, w3, w4){
+    
+    /*
+      Set steps of Stepper Motor
+    
+      Arguments:
+      w1,w2,w3,w4 = Wire of Stepper Motor
+    */
+    
+    this.motorC1.digitalWrite(w1);
+    this.motorC2.digitalWrite(w2);
+    this.motorC3.digitalWrite(w3);
+    this.motorC4.digitalWrite(w4);
+    
+    return this;
+    
+  }
+  
+  forward(delay, steps){
+    
+    /*
+      Rotate Stepper motor in forward direction
+    
+      Arguments:
+      delay = time between steps in full seconds
+      steps = Number of Steps
+    */
+    
+    for(let i = 0; i < steps; i++){
+      
+      this.setStep(1, 0, 0, 0);
+      sleep(delay * 1000);
+      this.setStep(0, 1, 0, 0);
+      sleep(delay * 1000);
+      this.setStep(0, 0, 1, 0);
+      sleep(delay * 1000);
+      this.setStep(0, 0, 0, 1);
+      sleep(delay * 1000);
+      
+    }
+    
+    return this;
+    
+  }
+  
+  backward(delay, steps){
+    
+    /*
+      Rotate Stepper motor in backward direction
+    
+      Arguments:
+      delay = time between steps
+      steps = Number of Steps
+    */
+    
+    for(let i = 0; i < steps; i++){
+      
+      this.setStep(0, 0, 0, 1);
+      sleep(delay * 1000);
+      this.setStep(0, 0, 1, 0);
+      sleep(delay * 1000);
+      this.setStep(0, 1, 0, 0);
+      sleep(delay * 1000);
+      this.setStep(1, 0, 0, 0);
+      sleep(delay * 1000);
+      
+    }
+    
+    return this;
+    
+  }
+  
+  stop(){
+    
+    // Stops power to the motor
+    
+    console.log("Stop stepper motor");
+    
+    this.motorC1.digitalWrite(0);
+    this.motorC2.digitalWrite(0);
+    this.motorC3.digitalWrite(0);
+    this.motorC4.digitalWrite(0);
+    
+  }
+  
+}
+
 function sleep(time) {
   /* 
   Stand-in for Python's sleep function. Requires async-await to work.
@@ -281,4 +416,4 @@ function sleep(time) {
   return new Promise(resolve => setTimeout(resolve, time));
 }
 
-module.exports = { Motor, LinkedMotors, Arrow, sleep };
+module.exports = { Motor, LinkedMotors, Stepper, Arrow, sleep };
