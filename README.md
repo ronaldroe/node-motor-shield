@@ -60,6 +60,9 @@ Differences between the libraries are designed to add minor functionality withou
     - For now, the test only runs once, until I can figure out how to make it loop continuously, which will depend on making it block the next iteration until the last one finishes. JS sucks at things like that.
   - ### Class 'Stepper'
     - **NOTE:** Delay times are in full seconds to align with the original library's API.
+  - ### Stepper Test
+    - As with Motor Test, only runs once. 
+    - Added a stop call to the function so the motor will stop running after the test.
   - ### `sleep(ms)`
     - Mimics Python's `sleep()` function in a JS async function.
     - Delays are in JS standard milliseconds, rather than Python's full seconds.
