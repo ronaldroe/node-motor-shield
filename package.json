@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/ronaldroe/node-motor-shield.git"
   },
-  "author": "",
+  "author": "Ronald Roe",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ronaldroe/node-motor-shield/issues"

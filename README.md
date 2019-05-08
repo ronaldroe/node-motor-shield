@@ -15,6 +15,12 @@ Node-based implementation of SBCShop's [Python MotorShield library](https://gith
 
   - GUI_Motor_Shield :x:
 
+## Installation
+
+```
+npm install --save node-motor-shield
+```
+
 ## Differences
 
 Effort has been made to ensure this repository behaves identically to the Python version. 
