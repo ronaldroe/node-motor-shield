@@ -246,9 +246,9 @@ class Arrow{
   
   constructor(which){
     
-    this.arrowpins = [0, 13, 19, 26, 16];
+    this.arrowpins = [13, 19, 26, 16];
     
-    this.pin = new Gpio(this.arrowpins[which], {mode: Gpio.OUTPUT});
+    this.pin = new Gpio(this.arrowpins[(which - 1)], {mode: Gpio.OUTPUT});
     
     this.pin.digitalWrite(0);
     
