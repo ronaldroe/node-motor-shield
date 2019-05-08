@@ -11,7 +11,7 @@ Node-based implementation of SBCShop's [Python MotorShield library](https://gith
   - Class `Arrow` :heavy_check_mark:
 
   - Test_Motor :heavy_check_mark:
-  - Stepper_Test :x:
+  - Stepper_Test :heavy_check_mark:
 
   - GUI_Motor_Shield :x:
 
