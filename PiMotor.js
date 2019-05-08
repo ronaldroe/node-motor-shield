@@ -300,10 +300,10 @@ class Stepper{
     
     this.motorEn1 = new Gpio(this.config.en1, {mode: Gpio.OUTPUT});
     this.motorEn2 = new Gpio(this.config.en2, {mode: Gpio.OUTPUT});
-    this.motorC1 = new Gpio(this.config.C1, {mode: Gpio.OUTPUT});
-    this.motorC2 = new Gpio(this.config.C2, {mode: Gpio.OUTPUT});
-    this.motorC3 = new Gpio(this.config.C3, {mode: Gpio.OUTPUT});
-    this.motorC4 = new Gpio(this.config.C4, {mode: Gpio.OUTPUT});
+    this.motorC1 = new Gpio(this.config.c1, {mode: Gpio.OUTPUT});
+    this.motorC2 = new Gpio(this.config.c2, {mode: Gpio.OUTPUT});
+    this.motorC3 = new Gpio(this.config.c3, {mode: Gpio.OUTPUT});
+    this.motorC4 = new Gpio(this.config.c4, {mode: Gpio.OUTPUT});
     
     this.motorEn1.digitalWrite(1);
     this.motorEn2.digitalWrite(1);

@@ -1,4 +1,4 @@
-const PiMotor = require('./PiMotor.js');
+const PiMotor = require('./');
 
 // Name of individual motors
 const m1 = new PiMotor.Motor('MOTOR1', 1);
