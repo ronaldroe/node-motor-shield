@@ -248,7 +248,7 @@ class Arrow{
     
     this.arrowpins = [0, 13, 19, 26, 16];
     
-    this.pin = new Gpio(which, {mode: Gpio.OUTPUT});
+    this.pin = new Gpio(this.arrowpins[which], {mode: Gpio.OUTPUT});
     
     this.pin.digitalWrite(0);
     
