@@ -1,6 +1,6 @@
 {
   "name": "node-motor-shield",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Node implementation of SBC Shop's Motor Shield library",
   "main": "index.js",
   "scripts": {
