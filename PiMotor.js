@@ -210,8 +210,8 @@ class LinkedMotors{
       Call without an argument to set speed to 100.
     */
     
-    this.motor.forEach(motor => {
-      motor.reverse(speed || 100);
+    this.motor.forEach(m => {
+      m.reverse(speed || 100);
     });
     
     return this;
@@ -397,6 +397,8 @@ class Stepper{
     this.motorC3.digitalWrite(0);
     this.motorC4.digitalWrite(0);
     
+    return this;
+    
   }
   
 }
@@ -471,19 +473,19 @@ class Sensor{
   
 }
 
-function sleep(time) {
+function sleep(timeInMilliseconds) {
   /* 
   Stand-in for Python's sleep function. Requires async-await to work.
-  Wrap code in a async function, then await sleep(time).
+  Wrap code in a async function, then await sleep(timeInMilliseconds).
   IIFE example:
     (async function(){
       console.log('start');
-      sleep(3000);
+      await sleep(3000);
       console.log('done');
     })()
   This will log 'start', wait 3 seconds, then log 'done'.
 */
-  return new Promise(resolve => setTimeout(resolve, time));
+  return new Promise(resolve => setTimeout(resolve, timeInMilliseconds));
 }
 
 module.exports = { Motor, LinkedMotors, Stepper, Arrow, sleep };

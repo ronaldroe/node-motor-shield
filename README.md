@@ -44,7 +44,7 @@ const motor1 = new PiMotor.Motor('MOTOR1', 1);
 motor1.forward(75); // Drives motor #1 forward at 75% speed.
 ```
 
-Arguments are the same as the [Python MotorShield library](https://github.com/sbcshop/MotorShield). See `Test_Motor.js` and `Stepper_Test.js` for more examples.
+Arguments are the same as the [Python MotorShield library](https://github.com/sbcshop/MotorShield). See `Test_Motor.js` and `Stepper_Test.js` for more examples, and the [MotorShield Python Docs](https://sbcshop.github.io/MotorShield/) for more information on how to use the library.
 
 ## Differences and Notes
 
