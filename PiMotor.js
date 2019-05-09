@@ -401,6 +401,76 @@ class Stepper{
   
 }
 
+class Sensor{
+  
+  /*
+    Defines a sensor connected to the sensor pins on the MotorShield
+    
+    Arguments:
+    sensortype = string identifying which sensor is being configured.
+        i.e. "IR1", "IR2", "ULTRASONIC"
+    boundary = an integer specifying the minimum distance at which the sensor
+        will return a Triggered response of True.
+  */
+  
+  constructor(sensortype, boundary){
+    
+    this.triggered = false;
+    
+    this.sensorpins = {
+      IR1: {
+        echo: 4,
+        check: this.iRCheck
+      },
+      IR2: {
+        echo: 18,
+        check: this.iRCheck
+      },
+      ULTRASONIC: {
+        trigger: 5,
+        echo: 6,
+        check: this.sonicCheck
+      }
+    };
+    
+    this.config = this.sensorpins[sensortype];
+    
+    this.boundary = boundary;
+    
+    this.lastRead = 0;
+    
+    if(this.config.hasOwnProperty('trigger')){
+      
+      console.log('trigger');
+      this.trigger = new Gpio(this.config.trigger, {mode: Gpio.OUTPUT});
+      
+    }
+    
+    this.echo = new Gpio(this.config.echo, {mode: Gpio.INPUT});
+    
+  }
+  
+  iRCheck(){
+    
+    let input_state = this.config.echo.digitalRead();
+    
+    if(input_state){
+      console.log('Sensor 2: Object Detected');
+      this.triggered = true;
+    } else {
+      this.triggered = false;
+    }
+    
+  }
+  
+  sonicCheck(){
+    
+    // I really don't know what to do here. Need to look deeper into this one.
+    
+  }
+  
+}
+
 function sleep(time) {
   /* 
   Stand-in for Python's sleep function. Requires async-await to work.

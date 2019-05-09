@@ -58,7 +58,7 @@ Differences between the libraries are designed to add minor functionality withou
     - As in the `Motor` class, `forward()` and `reverse()` may be called without the speed argument, which will default the speed to `100`.
   - ### Motor Test
     - For now, the test only runs once, until I can figure out how to make it loop continuously, which will depend on making it block the next iteration until the last one finishes. JS sucks at things like that.
-  - ### Class 'Stepper'
+  - ### Class `Stepper`
     - **NOTE:** Delay times are in full seconds to align with the original library's API.
   - ### Stepper Test
     - As with Motor Test, only runs once. 
@@ -71,7 +71,7 @@ Differences between the libraries are designed to add minor functionality withou
 ```
 (async function(){
   console.log('start');
-  sleep(3000); // 3 seconds
+  await sleep(3000); // 3 seconds
   console.log('done');
 })()
 ```
