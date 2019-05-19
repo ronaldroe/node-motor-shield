@@ -6,20 +6,26 @@ const m1 = new PiMotor.Stepper('STEPPER1');
 // Rotate Stepper 1 in forward/backward direction
 
 try{
+  
+  while(true){
+    
     // Stepper forward
-  console.log('Stepper Forward');
-  m1.forward(0.1, 10);
-  sleep.sleep(2);
+    console.log('Stepper Forward');
+    m1.forward(0.1, 10);
+    sleep.sleep(2);
+    
+    // Stepper reverse
+    console.log('Stepper Reverse');
+    m1.backward(0.1, 10);
+    sleep.sleep(2);
+    
+    // Stepper stop
+    console.log('Stepper Stop');
+    m1.stop();
+    sleep.sleep(2);
+    
+  }
   
-  // Stepper reverse
-  console.log('Stepper Reverse');
-  m1.backward(0.1, 10);
-  sleep.sleep(2);
-  
-  // Stepper stop
-  console.log('Stepper Stop');
-  m1.stop();
-
 } finally{
   
   // Cleanup before exit

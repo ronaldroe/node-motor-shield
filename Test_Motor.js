@@ -22,50 +22,51 @@ const ar = new PiMotor.Arrow(4);
 
 try{
     
-  (async function(){
+    while(true){
+      
+      // Drive the motors forward
+      console.log('Robot moving forward');
+      af.on();
+      motorAll.forward(50);
+      sleep.sleep(5);
+      
+      // Drive the motors backward
+      console.log('Robot moving backward');
+      af.off();
+      ab.on();
+      motorAll.reverse();
+      sleep.sleep(5);
     
-    // Drive the motors forward
-    console.log('Robot moving forward');
-    af.on();
-    motorAll.forward(100);
-    sleep.sleep(5);
+      // Drive the motors left
+      console.log('Robot moving left');
+      ab.off();
+      al.on();
+      m1.stop();
+      m2.stop();
+      m3.forward();
+      m4.forward();
+      sleep.sleep(5);
     
-    // Drive the motors backward
-    console.log('Robot moving backward');
-    af.off();
-    ab.on();
-    motorAll.reverse();
-    sleep.sleep(5);
-  
-    // Drive the motors left
-    console.log('Robot moving left');
-    ab.off();
-    al.on();
-    m1.stop();
-    m2.stop();
-    m3.forward();
-    m4.forward();
-    sleep.sleep(5);
-  
-    // Drive the motors right
-    console.log('Robot moving right');
-    al.off();
-    ar.on();
-    m1.forward();
-    m2.forward();
-    m3.stop();
-    m4.stop();
-    sleep.sleep(5);
-  
-    // Stop the motors
-    console.log('Robot stop');
-    al.off();
-    af.off();
-    ar.off();
-    motorAll.stop();
+      // Drive the motors right
+      console.log('Robot moving right');
+      al.off();
+      ar.on();
+      m1.forward();
+      m2.forward();
+      m3.stop();
+      m4.stop();
+      sleep.sleep(5);
     
-  })();
-  
+      // Stop the motors
+      console.log('Robot stop');
+      al.off();
+      af.off();
+      ar.off();
+      motorAll.stop();
+      sleep(5);
+      
+    }
+
 } finally {
   
   // Cleanup before exit
@@ -85,14 +86,4 @@ try{
     process.exit();
   });
   
-}
-
-// Create function to sleep for a given time
-function timeout(time) {
-    return new Promise(resolve => setTimeout(resolve, time));
-}
-
-async function sleep(time, cb, ...args){
-  await timeout(time);
-  return cb(...args);
 }

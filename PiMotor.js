@@ -346,13 +346,13 @@ class Stepper{
     for(let i = 0; i < steps; i++){
       
       this.setStep(1, 0, 0, 0);
-      sleep.sleep(delay);
+      sleep.msleep(delay * 1000);
       this.setStep(0, 1, 0, 0);
-      sleep.sleep(delay);
+      sleep.msleep(delay * 1000);
       this.setStep(0, 0, 1, 0);
-      sleep.sleep(delay);
+      sleep.msleep(delay * 1000);
       this.setStep(0, 0, 0, 1);
-      sleep.sleep(delay);
+      sleep.msleep(delay * 1000);
       
     }
     
@@ -373,13 +373,13 @@ class Stepper{
     for(let i = 0; i < steps; i++){
       
       this.setStep(0, 0, 0, 1);
-      sleep.sleep(delay);
+      sleep.msleep(delay * 1000);
       this.setStep(0, 0, 1, 0);
-      sleep.sleep(delay);
+      sleep.msleep(delay * 1000);
       this.setStep(0, 1, 0, 0);
-      sleep.sleep(delay);
+      sleep.msleep(delay * 1000);
       this.setStep(1, 0, 0, 0);
-      sleep.sleep(delay);
+      sleep.msleep(delay * 1000);
       
     }
     
@@ -493,4 +493,4 @@ class Sensor{
   
 }
 
-module.exports = { Motor, LinkedMotors, Stepper, Arrow, sleep };
+module.exports = { Motor, LinkedMotors, Stepper, Arrow };
