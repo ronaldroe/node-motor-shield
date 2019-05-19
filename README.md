@@ -57,9 +57,9 @@ Differences between the libraries are designed to add minor functionality withou
   - ### Class `LinkedMotors`
     - As in the `Motor` class, `forward()` and `reverse()` may be called without the speed argument, which will default the speed to `100`.
   - ### Motor Test
-    - ~~For now, the test only runs once, until I can figure out how to make it loop continuously, which will depend on making it block the next iteration until the last one finishes. JS sucks at things like that.~~ *This has been fixed in version 1.2.5*
+    - ~~For now, the test only runs once, until I can figure out how to make it loop continuously, which will depend on making it block the next iteration until the last one finishes. JS sucks at things like that.~~ *This has been fixed in version 1.3.0*
   - ### Class `Stepper`
     - **NOTE:** Delay times are in full seconds to align with the original library's API.
   - ### Stepper Test
-    - ~~As with Motor Test, only runs once.~~ *This has been fixed in version 1.2.5*
+    - ~~As with Motor Test, only runs once.~~ *This has been fixed in version 1.3.0*
     - Added a stop call to the function so the motor will stop running after the test.
