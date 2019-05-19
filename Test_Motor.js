@@ -1,4 +1,5 @@
 const PiMotor = require('./');
+const sleep = require('sleep');
 
 // Name of individual motors
 const m1 = new PiMotor.Motor('MOTOR1', 1);
@@ -27,14 +28,14 @@ try{
     console.log('Robot moving forward');
     af.on();
     motorAll.forward(100);
-    await PiMotor.sleep(5000);
+    sleep.sleep(5);
     
     // Drive the motors backward
     console.log('Robot moving backward');
     af.off();
     ab.on();
     motorAll.reverse();
-    await PiMotor.sleep(5000);
+    sleep.sleep(5);
   
     // Drive the motors left
     console.log('Robot moving left');
@@ -44,7 +45,7 @@ try{
     m2.stop();
     m3.forward();
     m4.forward();
-    await PiMotor.sleep(5000);
+    sleep.sleep(5);
   
     // Drive the motors right
     console.log('Robot moving right');
@@ -54,7 +55,7 @@ try{
     m2.forward();
     m3.stop();
     m4.stop();
-    await PiMotor.sleep(5000);
+    sleep.sleep(5);
   
     // Stop the motors
     console.log('Robot stop');

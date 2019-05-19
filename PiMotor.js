@@ -1,5 +1,6 @@
 'use strict';
 const Gpio = require('pigpio').Gpio;
+const sleep = require('sleep');
 
 class Motor{
   
@@ -345,13 +346,13 @@ class Stepper{
     for(let i = 0; i < steps; i++){
       
       this.setStep(1, 0, 0, 0);
-      sleep(delay * 1000);
+      sleep.sleep(delay);
       this.setStep(0, 1, 0, 0);
-      sleep(delay * 1000);
+      sleep.sleep(delay);
       this.setStep(0, 0, 1, 0);
-      sleep(delay * 1000);
+      sleep.sleep(delay);
       this.setStep(0, 0, 0, 1);
-      sleep(delay * 1000);
+      sleep.sleep(delay);
       
     }
     
@@ -372,13 +373,13 @@ class Stepper{
     for(let i = 0; i < steps; i++){
       
       this.setStep(0, 0, 0, 1);
-      sleep(delay * 1000);
+      sleep.sleep(delay);
       this.setStep(0, 0, 1, 0);
-      sleep(delay * 1000);
+      sleep.sleep(delay);
       this.setStep(0, 1, 0, 0);
-      sleep(delay * 1000);
+      sleep.sleep(delay);
       this.setStep(1, 0, 0, 0);
-      sleep(delay * 1000);
+      sleep.sleep(delay);
       
     }
     
@@ -446,9 +447,11 @@ class Sensor{
       console.log('trigger');
       this.trigger = new Gpio(this.config.trigger, {mode: Gpio.OUTPUT});
       
+      this.trigger.digitalWrite(0);
+      
     }
     
-    this.echo = new Gpio(this.config.echo, {mode: Gpio.INPUT});
+    this.echo = new Gpio(this.config.echo, {mode: Gpio.INPUT, alert: true});
     
   }
   
@@ -463,6 +466,8 @@ class Sensor{
       this.triggered = false;
     }
     
+    return this;
+    
   }
   
   sonicCheck(){
@@ -471,21 +476,21 @@ class Sensor{
     
   }
   
-}
-
-function sleep(timeInMilliseconds) {
-  /* 
-  Stand-in for Python's sleep function. Requires async-await to work.
-  Wrap code in a async function, then await sleep(timeInMilliseconds).
-  IIFE example:
-    (async function(){
-      console.log('start');
-      await sleep(3000);
-      console.log('done');
-    })()
-  This will log 'start', wait 3 seconds, then log 'done'.
-*/
-  return new Promise(resolve => setTimeout(resolve, timeInMilliseconds));
+  trigger(){
+    
+    /*
+      Executes the relevant routine that activates and takes a reading from the specified sensor.
+    
+      If the specified "boundary" has been breached the Sensor's Triggered attribute gets set to True.
+    */
+    
+    this.config.check();
+    console.log('Trigger called');
+    
+    return this;
+    
+  }
+  
 }
 
 module.exports = { Motor, LinkedMotors, Stepper, Arrow, sleep };

@@ -13,7 +13,7 @@ Node-based implementation of SBCShop's [Python MotorShield library](https://gith
   - Test_Motor :heavy_check_mark:
   - Stepper_Test :heavy_check_mark:
 
-  - GUI_Motor_Shield :x:
+  - GUI_Motor_Shield :x: *not currently planned*
 
 ## Installation
 
@@ -24,8 +24,6 @@ npm install --save node-motor-shield
 Alternatively, download the package and include `PiMotor.js` in your project's directory.
 
 ## Usage
-
-**NOTE:** In order to use the included `sleep()` function, routines must be wrapped in an async function (see example under Differences and Notes section). Alternatively, packages like [sleep](https://www.npmjs.com/package/sleep) can be used to stop the thread for a specified length of time.
 
 Include the library like so:
 
@@ -51,6 +49,8 @@ Arguments are the same as the [Python MotorShield library](https://github.com/sb
 Effort has been made to ensure this repository behaves identically to the Python version. 
 Differences between the libraries are designed to add minor functionality without sacrificing compatibility.
 
+  - ### All Classes
+    - All class methods return `this` so they can be chained.
   - ### Class `Motor`
     - `forward()` and `reverse()` may be called without a `speed` argument, which will cause the speed to default to `100`.
     - `test()` may be called without an argument, which acts as a toggle to the `testmode` state.
@@ -63,17 +63,3 @@ Differences between the libraries are designed to add minor functionality withou
   - ### Stepper Test
     - As with Motor Test, only runs once. 
     - Added a stop call to the function so the motor will stop running after the test.
-  - ### `sleep(ms)`
-    - Mimics Python's `sleep()` function in a JS async function.
-    - Delays are in JS standard milliseconds, rather than Python's full seconds.
-    - **NOTE:** `sleep()` must be called inside an asynchronous function, and used with the `await` operator.
-    - Example:
-```
-(async function(){
-  console.log('start');
-  await sleep(3000); // 3 seconds
-  console.log('done');
-})()
-```
-
-The above will log "start", and after 3 seconds, will log "done".
