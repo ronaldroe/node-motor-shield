@@ -192,7 +192,7 @@ class LinkedMotors{
     */
     
     this.motor.forEach(m => {
-      m.forward(speed || 100);
+      m.forward(typeof speed !== 'undefined' ? speed : 100);
     });
     
     return this;
@@ -212,7 +212,7 @@ class LinkedMotors{
     */
     
     this.motor.forEach(m => {
-      m.reverse(speed || 100);
+      m.reverse(typeof speed !== 'undefined' ? speed : 100);
     });
     
     return this;
